@@ -113,11 +113,12 @@ VALUES
 (1, 1),
 (2, 2),
 (3, 3),
-(4, 4),
+(4, 3),
 (5, 5),
-(6, 6),
+(5, 6),
 (7, 7);
 GO
+DELETE Book_Sec
 
 INSERT INTO Employees
 VALUES
@@ -142,7 +143,9 @@ VALUES
 
 	GO
 
-	SELECT b.Title, a.FirstName, a.LastName
+
+--One-To-Many
+SELECT b.Title, a.FirstName, a.LastName
 FROM Books b
 INNER JOIN Authors a ON b.AuthorID = a.AuthorID;
 
@@ -158,3 +161,31 @@ RIGHT JOIN Authors a ON b.AuthorID = a.AuthorID;
 FROM Books b
 FULL OUTER JOIN Authors a ON b.AuthorID = a.AuthorID;
 
+
+--Many-To-Many
+--INNER JOIN
+SELECT b.Title, s.SecName
+FROM Books b
+INNER JOIN Book_Sec ON B.BookID = Book_Sec.BookID
+INNER JOIN Sections s ON S.SecID = Book_Sec.SecID
+
+
+--LEFT JOIN
+SELECT b.Title, s.SecName
+FROM Books b
+LEFT JOIN Book_Sec ON B.BookID = Book_Sec.BookID
+LEFT JOIN Sections s ON S.SecID = Book_Sec.SecID
+
+
+--RIGHT JOIN
+SELECT b.Title, s.SecName
+FROM Books b
+RIGHT JOIN Book_Sec ON B.BookID = Book_Sec.BookID
+RIGHT JOIN Sections s ON S.SecID = Book_Sec.SecID
+
+
+--FULL JOIN
+SELECT b.Title, s.SecName
+FROM Books b
+FULL OUTER JOIN Book_Sec ON B.BookID = Book_Sec.BookID
+FULL OUTER JOIN Sections s ON S.SecID = Book_Sec.SecID
